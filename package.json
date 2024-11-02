@@ -4,8 +4,8 @@
   "main": "App.js",
   "description": "",
   "scripts": {
-    "start": "node app.js",
-    "dev": "node --watch app.js"
+    "start": "node App.js",
+    "dev": "node --watch App.js"
   },
   "keywords": [],
   "author": "",
