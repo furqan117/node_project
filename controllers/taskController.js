@@ -39,7 +39,6 @@ exports.createTask = (req, res) => {
 
     })
 
-
 }
 
 exports.updateTask = (req, res) => {
