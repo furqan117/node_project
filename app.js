@@ -1,21 +1,20 @@
-const fs = require('fs');
-const path = require('path');
+const http = require('http');
+const taskRoutes = require('./routes/taskRoutes');
 
-const filePath = './data/tasks.json';
+const HOSTNAME = 'localhost'
+const PORT = 9000
 
-exports.writeTasksToFile = (tasks) => {
-    if (Array.isArray(tasks) && tasks.length === 0) {
-        fs.writeFileSync(filePath, '[]');
+const server = http.createServer((req, res) => {
+    if (req.url.startsWith('/tasks')) {
+        taskRoutes(req, res)
     } else {
-        fs.writeFileSync(filePath, JSON.stringify(tasks, null, 2));
+        res.writeHead(404, 'Not Found', { 'content-type': 'application/json'})
+        res.end(JSON.stringify({
+            message: 'Sorry, you got lost!'
+        }))
     }
-}
+});
 
-exports.readTasksFromFile = () => {
-    if(!fs.existsSync(filePath)) {
-        this.writeTasksToFile([])
-    }
-
-    const data = fs.readFileSync(filePath);
-    return JSON.parse(data)
-}
+server.listen(PORT, HOSTNAME, () => {
+    console.log(`Server running on port ${PORT}`)
+})
